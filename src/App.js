@@ -1,16 +1,19 @@
-import CakeCard from "./CakeCard";
+import CakeCard from "./components/CakeCard";
+// import Container from "./components/Container"
+// import Header from "./components/Header"
+// import SearchBar from "./components/SearchBar"
+import cakes from "./CakeData";
 
 
 function App() {
   return (
     <>
-    <h1>Flunkin' Donuts</h1>
-    <CakeCard flavor={"React Raisin"} price={"5"}/>
-    <CakeCard flavor={"Data Nut Crunch"} price={"4"}/>
-    <CakeCard flavor={"Prop Berry"} price={"3"}/>
+   {cakes.map(cake => <CakeCard flavor={cake.flavor} price={cake.price} size={cake.size} image={cake.image} key={cake.flavor} />)
+}
 
     </>
   );
 }
 
 export default App;
+
