@@ -8,7 +8,7 @@ import cakes from "./CakeData";
 function App() {
   return (
     <>
-   {cakes.map(cake => <CakeCard flavor={cake.flavor} price={cake.price} size={cake.size} image={cake.image} key={cake.flavor} />)
+   {cakes.map(cake => <CakeCard />)
 }
 
     </>
