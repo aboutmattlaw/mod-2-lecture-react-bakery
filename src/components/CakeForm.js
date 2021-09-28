@@ -21,9 +21,9 @@ function CakeForm ({handleAddCake}) {
         e.preventDefault()
         handleAddCake(formData)
         setFormData({
-            flavor:'thanks',
-            size: 'for',
-            image: 'adding',
+            flavor:'',
+            size: '',
+            image: '',
             price: 0,
         })
     }

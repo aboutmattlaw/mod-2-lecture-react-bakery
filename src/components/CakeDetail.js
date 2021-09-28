@@ -1,4 +1,4 @@
-function CakeDetail({cake}){
+function CakeDetail({cake , handleDelete , handleUpdate}){
     return (
 
         <div>
@@ -7,6 +7,8 @@ function CakeDetail({cake}){
         <p>{cake.flavor}</p>
         <p>${cake.price}</p>
         <p>{cake.description}</p>
+        <button onClick={() => handleDelete(cake.id)}>Delete</button>
+        <button onClick={() => handleUpdate(cake)}>{cake.liked? "liked" : "unliked"}</button>
         </div>
         )
 }

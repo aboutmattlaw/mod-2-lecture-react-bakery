@@ -28,10 +28,60 @@ function App() {
   
 
  function handleAddCake(cake){
-   setCakes([
-     ...cakeList, cake
-   ])
-  } 
+  fetch('http://localhost:4000/cakes',{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(cake)
+  })
+  .then(res => res.json()) 
+  .then(newCake =>{
+    setCakes([
+      ...cakeList, newCake
+    ]);
+  });
+  };
+
+function handleDelete(id){
+  fetch(`http://localhost:4000/cakes/${id}`,{
+    method: 'DELETE'
+  })
+  .then(res => res.json())
+  .then(() => {
+    const filteredCakes = cakeList.filter(cake => cake.id !== id)
+    setCakes(filteredCakes)
+    setSelectedCake(null)
+  })
+}
+
+function handleUpdate(cake){
+  fetch(`http://localhost:4000/cakes/${cake.id}`,{
+    method: 'PATCH',
+    headers: {
+      'Content-Type' : 'application/json',
+    },
+    body: JSON.stringify({liked:!cake.liked}),
+  })
+    .then(res => res.json())
+    .then(updateCake => {
+      const updatedCakeList = cakeList.map(clCake => {
+        if (clCake.id === cake.id) {
+          return updateCake;
+        } else {
+          return clCake;
+        }
+        });
+        setSelectedCake(updateCake)
+        setCakes(updatedCakeList)
+      });
+    };
+        
+  
+
+
+
+
 
   return (
     <>
@@ -40,7 +90,7 @@ function App() {
     <CakeForm handleAddCake={handleAddCake}/>
     {visible?<SearchBar />:null}
     <button onClick={() => setVisible(!visible)}>{visible?"x":"Form"}</button>
-    {selectedCake ? <CakeDetail cake={selectedCake} /> : null}
+    {selectedCake ? <CakeDetail cake={selectedCake} handleDelete={handleDelete} handleUpdate={handleUpdate}/> : null}
    {cakeList.map(cake => <CakeCard cake={cake} setSelectedCake={setSelectedCake}/>)}
    
     </>
